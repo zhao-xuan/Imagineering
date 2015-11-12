@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+window.onload = function() {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	
+	canvas.height = "650";
+	canvas.width = "1250";
+	drawRect(context, 150, 300, 100, 86.5, 2, "blue", "lightblue");
+	drawRect2(context, 500, 300, 100, 100, 2, "cyan", "rgba(26, 198, 240, 0.5)");
+	equilateralTri(context, 200, 300, 100, 2, "red", "rgba(136, 160, 200, 0.5)");
+	petagon(context, 550, 300, 50, 2, "green", "rgba(26, 153, 224, 0.5)");
+	trapezoid(context, 200, 400, 70, 60, 50, 2, "red", "rgba(19, 172, 224, 0.5)");
+	stars(context, 400, 200, 100, 2, "red", "rgba(0, 255, 0, 0.3)");
+	normalStar(context, 300, 300, 50, 120, 10);
+}
+//长方形绘制
+function drawRect(cxt, x, y, width, height, borderWidth, borderColor, fillColor){
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x + width, y);
+	cxt.lineTo(x + width, y + height);
+	cxt.lineTo(x, y + height);
+	cxt.closePath();
+	
+	cxt.lineWidth = borderWidth;
+	cxt.strokeStyle = borderColor;
+	cxt.fillStyle = fillColor;
+	
+	cxt.fill();
+	cxt.stroke();
+}
+
+function drawRect2(cxt, x, y, width, height, borderWidth, borderColor, fillColor){
+	cxt.beginPath();
+	cxt.fillStyle = fillColor;
+	cxt.strokeStyle = borderColor;
+	cxt.fillRect(x, y, width, height);
+	cxt.strokeRect(x, y, width, height);
+}
+//等边三角形绘制
+function equilateralTri(cxt, x, y, side, borderWidth, borderColor, fillColor) {
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x - (side / 2), y + side * Math.sqrt(3) / 2)
+	cxt.lineTo(x - (side / 2) + side, y + side * Math.sqrt(3) / 2);
+	cxt.lineTo(x, y);
+	cxt.closePath();
+	
+	cxt.strokeStyle = borderColor;
+	cxt.strokeWidth = borderWidth;
+	cxt.fillStyle = fillColor;
+	
+	cxt.stroke();
+	cxt.fill();
+}
+//五边形绘制
+function petagon(cxt, x, y, side, borderWidth, borderColor, fillColor) {
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x + side * Math.sin(36), y - side * Math.sin(36));
+	cxt.lineTo(x + side * Math.sin(36) + side * Math.cos(45), y - side * Math.sin(36) - side * Math.sin(36));
+	cxt.lineTo(x + side * Math.sin(36) + side * Math.cos(45) + side, y - side * Math.sin(36) - side * Math.sin(36));
+	cxt.lineTo(x + side * Math.sin(36) - 2 * side * Math.sin(36), y - side * Math.sin(36));
+	
+	cxt.closePath();
+	
+	cxt.fillStyle = fillColor;
+	cxt.strokeStyle = borderColor;
+	cxt.strokeWidth = borderWidth;
+	
+	cxt.stroke();
+	cxt.fill();
+}
+//梯形绘制(未维护)
+function trapezoid(cxt, x, y, top, iso, topAngle, borderWidth, borderColor, fillColor) {
+	var bottom = iso * Math.abs(Math.sin(topAngle - 90)) * 2+top;
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x + top, y);
+	cxt.lineTo(x + iso*Math.abs(Math.sin(topAngle - 90))+top, y - iso * Math.sin(180 - topAngle));
+	cxt.lineTo(x + iso*Math.abs(Math.sin(topAngle - 90)) - bottom, y - iso * Math.sin(180 - topAngle));
+	cxt.closePath();
+	
+	cxt.strokeStyle = borderColor;
+	cxt.fillStyle = fillColor;
+	cxt.lineWidth = borderWidth;
+	cxt.stroke();
+	cxt.fill();
+}
+//★绘制
+function stars(cxt, x, y, length, borderWidth, borderColor, fillColor) {
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x + length * Math.sin(36) + length * Math.cos(45), y - length * Math.sin(36) - length * Math.sin(36));
+	cxt.lineTo(x + length * Math.sin(36) - 2 * length * Math.sin(36), y - length * Math.sin(36));
+	cxt.lineTo(x + length * Math.sin(36), y - length * Math.sin(36));
+	cxt.lineTo(x + length * Math.sin(36) + length * Math.cos(45) + length, y - length * Math.sin(36) - length * Math.sin(36));
+	cxt.closePath();
+	
+	cxt.fillStyle = fillColor;
+	cxt.strokeStyle = borderColor;
+	cxt.lineWidth = borderWidth;
+	cxt.stroke();
+	cxt.fill();
+}
+//☆绘制
+function normalStar(cxt, x, y, r, R, rot) {
+	cxt.beginPath();
+	for (var i = 0; i < 5; i++) {
+		cxt.lineTo(Math.cos((18 + i*72 - rot)/180 * Math.PI) * R + x, -Math.sin((18 + i*72 - rot)/180 * Math.PI)*R+x);
+		cxt.lineTo(Math.cos((54 + i*72 - rot)/180 * Math.PI) * r+x, -Math.sin((54 + i*72 - rot)/180 * Math.PI)*r+y);
+	}
+	cxt.closePath();
+	cxt.stroke();
+}
+</script>
+</body>
+</html>
