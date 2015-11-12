@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ball</title>
+<style>
+canvas{border:2px red solid;}
+</style>
+</head>
+<body>
+<script>var ball1 = [512, 100, 10, 0.1, -5, 5];
+var ball2 = [400, 200, 10, 0.1, -5, 5];
+var ball3 = [350, 100, 10, 0.1, -5, 5];
+var HEIGHT = 648;
+var WIDTH = 1268;
+window.onload = function() {
+	var canvas = document.getElementById("canvas");
+	canvas.height = HEIGHT;
+	canvas.width = WIDTH;
+	var context = canvas.getContext("2d");
+	
+	setInterval(
+		function() {
+			render(context);
+			fall1();
+			fall2();
+			fall3();
+		},
+		50
+	);
+}
+
+function render(a){
+	a.clearRect(0, 0, a.canvas.width, a.canvas.height);
+	a.beginPath();
+	a.arc(ball1[0], ball1[1], ball1[2], 0, 2*Math.PI);
+	a.fillStyle = "red";
+	a.fill();
+	a.closePath();	
+	
+	a.beginPath();
+	a.arc(ball2[0], ball2[1], ball2[2], 0, 2*Math.PI);
+	a.fillStyle = "green";
+	a.fill();
+	a.closePath();
+	
+	a.beginPath();
+	a.arc(ball3[0], ball3[1], ball3[2], 0, 2*Math.PI);
+	a.fillStyle = "orange";
+	a.fill();
+	a.closePath();
+}
+
+function fall1() {
+	ball1[0] += ball1[4];
+	ball1[1] += ball1[5];
+	ball1[5] += ball1[2];
+	
+	if (ball1[1] >= HEIGHT - ball1[2]) {
+		ball1[1] = HEIGHT - ball1[2];
+		ball1[5] = -ball1[5]*0.99;
+	}
+	
+	if (ball1[0] <= ball1[2]) {
+		ball1[0] = ball1[2];
+		ball1[4] = -ball1[4]*0.99;
+	}
+	
+	if (ball1[1] <= ball1[2]) {
+		ball1[1] = ball1[2];
+		ball1[5] = -ball1[5]*0.99;
+	}
+	
+	if (ball1[0] >= WIDTH - ball1[2]) {
+		ball1[0] = WIDTH - ball1[2];
+		ball1[4] = -ball1[4]*0.99
+	}
+}
+
+function fall2() {
+	ball2[0] += ball2[4];
+	ball2[1] += ball2[5];
+	ball2[5] += ball2[2];
+	
+	if (ball2[1] >= HEIGHT - ball2[2]) {
+		ball2[1] = HEIGHT - ball2[2];
+		ball2[5] = -ball2[5]*0.99;
+	}
+	
+	if (ball2[0] <= ball2[2]) {
+		ball2[0] = ball2[2];
+		ball2[4] = -ball2[4]*0.99;
+	}
+	
+	if (ball2[1] <= ball2[2]) {
+		ball2[1] = ball2[2];
+		ball2[5] = -ball2[5]*0.99;
+	}
+	
+	if (ball2[0] >= WIDTH - ball2[2]) {
+		ball2[0] = WIDTH - ball2[2];
+		ball2[4] = -ball2[4]*0.99
+	}
+}
+
+function fall3() {
+	ball3[0] += ball3[4];
+	ball3[1] += ball3[5];
+	ball3[5] += ball3[2];
+	
+	if (ball3[1] >= HEIGHT - ball3[2]) {
+		ball3[1] = HEIGHT - ball3[2];
+		ball3[5] = -ball3[5];
+	}
+	
+	if (ball3[0] <= ball3[2]) {
+		ball3[0] = ball3[2];
+		ball3[4] = -ball3[4]*0.99;
+	}
+	
+	if (ball3[1] <= ball3[2]) {
+		ball3[1] = ball3[2];
+		ball3[5] = -ball3[5]*0.99;
+	}
+	
+	if (ball3[0] >= WIDTH - ball3[2]) {
+		ball3[0] = WIDTH - ball3[2];
+		ball3[4] = -ball3[4]*0.99
+	}
+}</script>
+<canvas id="canvas">
+</canvas>
+</body>
+</html>
