@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{margin:0;padding:0;}
+</style>
+</head>
+<body>
+<script>
+window.onload = function() {
+	var canvas = document.getElementById("canvas");
+	var button = document.getElementById("button");
+	var context = canvas.getContext("2d");
+	canvas.width = window.screen.availWidth;
+	canvas.height = window.screen.height;
+	
+	var lgt = context.createLinearGradient(0, 0, 0, canvas.height);
+	lgt.addColorStop(0, "lightblue");
+	lgt.addColorStop(1, "lightgreen");
+	context.fillStyle = lgt;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	for (var i = 0; i < 200; i++) {
+		var r = Math.random() * 5 + 5;
+		var x = Math.random() * canvas.width;
+		var y = Math.random() * canvas.height * 0.65;
+		var a = Math.random() * 360;
+		var randomNum = Math.random() * 255;
+		var randomAlt = Math.random();
+		normalStar(context, x, y, r, r / 2, a);
+	}
+}
+
+function normalStar(cxt, x, y, r, R, rot) {
+	cxt.beginPath();
+	for (var i = 0; i < 5; i++) {
+		cxt.lineTo(Math.cos((18 + i*72 - rot)/180 * Math.PI) * r + x, -Math.sin((18 + i*72 - rot)/180 * Math.PI)*r+y);
+		cxt.lineTo(Math.cos((54 + i*72 - rot)/180 * Math.PI) * R+x, -Math.sin((54 + i*72 - rot)/180 * Math.PI)*R+y);
+	}
+	cxt.closePath();
+	
+	cxt.strokeStyle = randomColor();
+	cxt.fillStyle = randomColor();
+	cxt.lineWidth = 3;
+	cxt.stroke();
+	cxt.fill();
+}
+//随机生成色
+function randomColor() {
+	var num = parseInt(Math.random() * 7);
+	var color = "";
+	switch (num) {
+	case 0:
+		color = "rgba(252, 69, 69, 0.5)";
+		break;
+	case 1:
+		color = "rgba(247, 182, 74, 0.5)";
+		break;
+	case 2:
+		color = "rgba(253, 253, 9, 0.7)";
+		break;
+	case 3:
+		color = "rgba(12, 250, 12, 0.5)";
+		break;
+	case 4:
+		color = "rgba(22, 228, 239, 0.5)";
+		break;
+	case 5:
+		color = "rgba(30, 18, 243, 0.5)";
+		break;
+	case 6:
+		color = "rgba(193, 17, 244, 0.5)";
+		break;
+	case 7:
+		color = "rgba(250, 12, 160, 0.5)";
+		break;
+	}
+	
+	return color;
+}
+</script>
+<canvas id="canvas"></canvas>
+</body>
+</html>
