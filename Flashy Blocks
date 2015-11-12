@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+</head>
+<body>
+<script>
+var randomA = "";
+var randomB = "";
+window.onload = function () {
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	
+	canvas.width = window.screen.availWidth;
+	canvas.height = window.screen.availHeight;
+	
+	setInterval(		
+		function() {
+			render(context);
+		},10);
+	
+}
+function randomnum() {
+	var a = randomColor();
+	return a;
+}
+function render(b) {
+		b.clearRect(0, 0, b.canvas.width, b.canvas.height);		for (var i = 0; i < canvas.width / 50; i++) {
+		for (var j = 0; j < canvas.height / 30; j++) {
+				randomA = randomColor();
+				randomB = randomColor();
+		b.fillStyle = randomnum();
+		b.strokeStyle = randomnum();
+		b.beginPath();
+		b.moveTo(i*50, j*30);
+		b.lineTo(i*50, j*30+10);
+		b.arc(i*50+5, j*30+10, 5, 1*Math.PI, 0.5*Math.PI, true);
+		b.lineTo(i*50 + 30, j*30+10+5);
+		b.arc(i*50 + 30, j*30+10, 5, 0.5*Math.PI, 0, true);
+		b.lineTo(i*50 + 30 + 5, j*30);
+		b.closePath();
+	
+		b.lineWidth = 3;
+		b.stroke();
+		b.fill();
+		}
+	}
+}/*	*/
+function draw(a) {
+	for (var i = 0; i < canvas.width / 50; i++) {
+		for (var j = 0; j < canvas.height / 30; j++) {
+				a.fillStyle = randomA;
+				a.strokeStyle = randomB;
+			tapIcon(a, i * 50, j * 30, 10, 30, 5, "rgba(255, 0, 0, 0.5)", 3, "rgba(0, 100, 255, 0.5)");
+		}
+	}
+}
+//圆角矩形绘制
+function roundedRect(cxt, x, y, width, height, r, borderColor, borderWidth, fillColor) {
+	cxt.beginPath();
+	cxt.moveTo(x - r, y);
+	cxt.lineTo(x - r, y + height);
+	cxt.arc(x, y+height, r, 1*Math.PI, 0.5*Math.PI, true);
+	cxt.lineTo(x + width, y+height+r);
+	cxt.arc(x + width, y+height, r, 0.5*Math.PI, 0, true);
+	cxt.lineTo(x + width + r, y);
+	cxt.arc(x+width, y, r, 0, 1.5*Math.PI, true);
+	cxt.lineTo(x, y - r);
+	cxt.arc(x, y, r, 1.5*Math.PI, 1*Math.PI, true);
+	cxt.closePath();
+	
+	cxt.fillStyle = fillColor;
+	cxt.strokeStyle = borderColor;
+	cxt.lineWidth = borderWidth;
+	
+	cxt.stroke();
+	cxt.fill();
+}
+//控制点弧线绘制
+function arcControl(cxt, x, y, x1, y1, x2, y2, r) {
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.arcTo(x1, y1, x2, y2, r);
+	cxt.stroke();
+	
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x1, y1);
+	cxt.lineTo(x2, y2);
+	cxt.strokeStyle = "gray";
+	cxt.lineWidth = 1;
+	cxt.stroke();
+}
+//右上↗角标绘制
+function tapIcon(cxt, x, y, height, width, r, borderColor, borderWidth, fillColor) {
+	cxt.beginPath();
+	cxt.moveTo(x, y);
+	cxt.lineTo(x, y+height);
+	cxt.arc(x+r, y+height, r, 1*Math.PI, 0.5*Math.PI, true);
+	cxt.lineTo(x + width, y+height+r);
+	cxt.arc(x + width, y+height, r, 0.5*Math.PI, 0, true);
+	cxt.lineTo(x + width + r, y);
+	cxt.closePath();
+	
+	cxt.lineWidth = borderWidth;
+	cxt.stroke();
+	cxt.fill();
+	
+}
+//随机生成色
+function randomColor() {
+	var num = parseInt(Math.random() * 7);
+	var color = "";
+	switch (num) {
+	case 0:
+		color = "rgba(252, 69, 69, 0.5)";
+		break;
+	case 1:
+		color = "rgba(247, 182, 74, 0.5)";
+		break;
+	case 2:
+		color = "rgba(253, 253, 9, 0.7)";
+		break;
+	case 3:
+		color = "rgba(12, 250, 12, 0.5)";
+		break;
+	case 4:
+		color = "rgba(22, 228, 239, 0.5)";
+		break;
+	case 5:
+		color = "rgba(30, 18, 243, 0.5)";
+		break;
+	case 6:
+		color = "rgba(193, 17, 244, 0.5)";
+		break;
+	case 7:
+		color = "rgba(250, 12, 160, 0.5)";
+		break;
+	}
+	
+	return color;
+}
+</script>
+<canvas id="canvas"></canvas>
+</body>
+</html>
